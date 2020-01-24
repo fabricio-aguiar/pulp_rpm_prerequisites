@@ -17,11 +17,16 @@ matrix:
     - python: 2.7
       env: TOXENV=py27
     - python: 3.6
-      env: TOXENV=py36
+      env: TOXENV=py36-default
+    - python: 3.6
+      env: TOXENV=py36-upgrade
     - python: 3.7
       env: TOXENV=py37
 before_install:
-  .travis/before_install.sh
+  - docker pull quay.io/pulp/pulp-ci-c7:3.0.0
+  - docker pull quay.io/pulp/pulp-ci-dbuster:3.0.0
+  - docker pull quay.io/pulp/pulp-ci-f31:3.0.0
+  - .travis/before_install.sh
   # Created template_config.yml with plugin_template,
   # and after that I removed manually travis files not related to validating commit
   # also removed some python related stuff like flake8, black and pip installing doc/test requirements
